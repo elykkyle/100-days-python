@@ -5,17 +5,17 @@ from twilio.rest import Client
 
 dotenv.load_dotenv()
 # twilio
-account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
 
 # openweathermap API
 WEATHER_URL = "https://api.openweathermap.org/data/3.0/onecall"
 
 params = {
-    "lat": os.environ["MY_LAT"],
-    "lon": os.environ["MY_LONG"],
-    "appid": os.environ['OPENWEATHERMAP_API_TOKEN'],
+    "lat": os.environ.get("MY_LAT"),
+    "lon": os.environ.get("MY_LONG"),
+    "appid": os.environ.get('OPENWEATHERMAP_API_TOKEN'),
     "exclude": "current,minutely,daily"
 }
 
@@ -43,7 +43,7 @@ if will_rain_twelve_hour(data):
     message = client.messages.create(
         from_='+18444233550',
         body='Bring an umbrella!',
-        to=os.environ["MY_PHONE"]
+        to=os.environ.get("MY_PHONE")
     )
 
 print(message.sid)
