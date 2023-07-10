@@ -1,8 +1,12 @@
 from pprint import pprint
 import requests
+import os
+from dotenv import load_dotenv
 
-SHEETY_URL = "https://api.sheety.co/83e982eaa2c6f35ad75ba929d10115f3/flightDeals/prices"
-SHEETY_AUTH_TOKEN = "uTGT91t0LFPugtvQTmg3wgY3llG3GBpGcNI9PUL8NZN4UL"
+load_dotenv()
+
+SHEETY_URL = os.environ.get("SHEETY_URL")
+SHEETY_AUTH_TOKEN = os.environ.get("SHEETY_AUTH_TOKEN")
 req_headers = {
             "Authorization": f"Bearer {SHEETY_AUTH_TOKEN}"
         }
@@ -23,8 +27,6 @@ class DataManager:
         update = {
             "price": new_data
         }
-        print(URL)
-        pprint(update)
         response = requests.put(URL, headers=req_headers, json=update)
         response.raise_for_status()
 
