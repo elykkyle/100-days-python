@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from notification_manager import NotificationManager
 from dotenv import load_dotenv
 import os
+import lxml
 
 load_dotenv()
 NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL")
@@ -19,9 +20,10 @@ product_url = "https://www.amazon.com/dp/B075CYMYK6?th=1"
 target_price = 100
 response = requests.get(product_url, headers=headers)
 
-soup = BeautifulSoup(response.text, "html.parser")
+soup = BeautifulSoup(response.text, "lxml")
 title_span = soup.find("span", id="productTitle")
-item_name = title_span.getText().encode('utf-8').strip()
+item_name = title_span.getText().strip()
+
 price_span = soup.find("span", class_="a-offscreen")
 current_price = float(price_span.getText().split("$")[1])
 
